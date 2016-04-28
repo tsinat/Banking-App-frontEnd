@@ -14,6 +14,7 @@
 
 <body ng-app='myapp' ng-controller='mainCtrl'>
     <div class="container">
+
         <h1>My Checking Account</h1>
         <form ng-submit='addBalance()'>
             <h2>Add Balance</h2>
@@ -36,8 +37,30 @@
             <button type='submit' class='btn btn-primary' >Add Balance</button>
         </form>
         <div class="totalBalance">
-            <h2>TotalBalance ${{creditTotal-debitTotal}}</h2>
+            <h2>TotalBalance ${{balance}}</h2>
         </div>
+
+        <form ng-if="editAmount" ng-submit='saveEdit()'>
+            <h2>Edit Amount</h2>
+            <div class="form-group">
+                <label for="">Date</label>
+                <input type="date" value="2013-01-08" class='form-control' ng-model='editAmount.date'>
+            </div>
+            <div class="form-group">
+                <label for="">Description</label>
+                <input type="text" class='form-control' ng-model='editAmount.name' required>
+            </div>
+            <div class="form-group">
+                <label for="">Debit</label>
+                <input type="number" class='form-control' ng-model='editAmount.debit'>
+            </div>
+            <div class="form-group">
+                <label for="email">Credit</label>
+                <input type="number" class='form-control' ng-model='editAmount.credit'>
+            </div>
+            <button type='submit' class='btn btn-primary' >Save</button>
+        </form>
+
         <table class="table">
             <thead>
                 <tr>

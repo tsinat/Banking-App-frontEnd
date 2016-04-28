@@ -12,7 +12,7 @@ app.controller('mainCtrl', function($scope){
         $scope.amount.push($scope.newAmount);
         $scope.debitTotal += Number($scope.newAmount.debit || 0);
         $scope.creditTotal += Number($scope.newAmount.credit || 0);
-        $scope.balance = $scope.debitTotal + $scope.creditTotal;
+        $scope.balance = $scope.creditTotal - $scope.debitTotal;
         $scope.newAmount = {};
     };
 
@@ -22,13 +22,19 @@ app.controller('mainCtrl', function($scope){
         $scope.amount.splice(index, 1);
          $scope.debitTotal -= Number($scope.balance.debit || 0);
         $scope.creditTotal -= Number($scope.balance.credit || 0);
-        $scope.balance = $scope.debitTotal + $scope.creditTotal;
+        $scope.balance = $scope.creditTotal - $scope.debitTotal;
 
     };
+    var editingIndex;
     $scope.editBalance = balance => {
-        console.log(balance);
+        editingIndex =$scope.amount.indexOf(balance)
+        $scope.editAmount = angular.copy(balance);
 
-    }
+    };
+    $scope.saveEdit = () => {
+        $scope.amount[editingIndex] = $scope.editAmount;
+        $scope.editAmount = {};
+    };
     $scope.sortBy = balance =>{
         console.log(balance);
 
