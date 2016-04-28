@@ -10,25 +10,24 @@ app.controller('mainCtrl', function($scope){
     $scope.creditTotal = 0;
     $scope.addBalance = () => {
         $scope.amount.push($scope.newAmount);
-        if($scope.newAmount.debit == ''){
-            $scope.newAmount.debit ==0;
-        }
-        if($scope.newAmount.credit == ''){
-            $scope.newAmount.credit ==0;
-        }
-        $scope.debitTotal += Number($scope.newAmount.debit);
-        $scope.creditTotal += Number($scope.newAmount.credit);
+        $scope.debitTotal += Number($scope.newAmount.debit || 0);
+        $scope.creditTotal += Number($scope.newAmount.credit || 0);
+        $scope.balance = $scope.debitTotal + $scope.creditTotal;
         $scope.newAmount = {};
     };
 
     $scope.removeRow = balance => {
-        var index = $scope.amount.indexOf(balance);
         console.log(balance);
+        var index = $scope.amount.indexOf(balance);
         $scope.amount.splice(index, 1);
+         $scope.debitTotal -= Number($scope.balance.debit || 0);
+        $scope.creditTotal -= Number($scope.balance.credit || 0);
+        $scope.balance = $scope.debitTotal + $scope.creditTotal;
+
     };
     $scope.editBalance = balance => {
         console.log(balance);
-        
+
     }
     $scope.sortBy = balance =>{
         console.log(balance);
